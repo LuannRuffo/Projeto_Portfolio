@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cadastro</title>
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <div>
+            <h2>Cadastro</h2>
+            <form id="cadastroForm" method="post">
+                <input type="text" name="username" placeholder="Usuário">
+                <input type="text" name="name" placeholder="Nome">
+                <input type="password" name="senha" placeholder="Senha">
+                <input type="password" name="confirmarSenha" placeholder="Confirmar Senha">
+                <input type="text" name="Email" placeholder="E-mail">
+                <input type="submit" value="Cadastrar">
+            </form>
+        </div>
+
+        <script>
+            document.getElementById('cadastroForm').addEventListener('submit', function(event) {
+                event.preventDefault()
+
+                const name = event.target.elements['name'].value;
+                const senha = event.target.elements['senha'].value;
+                const confirmarSenha = event.target.elements['confirmarSenha'].value;
+                const email = event.target.elements['Email'].value;
+                const username = event.target.elements['username'].value;
+
+                if (senha !== confirmarSenha) {
+                    alert('as senhas nao coecidem')
+                }
+
+                fetch('http://localhost:3000/cadastro', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+
+                    body: JSON.stringify({ name, senha, email, username })
+                })
+                .then(response => response.json())
+                .then(data => alert(data.message))
+                .catch(error => {
+                    alert(error.message)
+                })
+            })
+        </script>
+    </body>
+</html>
