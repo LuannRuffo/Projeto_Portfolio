@@ -81,13 +81,24 @@
         })
 
         .then(response => response.json())
-        .then(data => alert(data.message))
+        .then(data => {
+
+            if (data.token) {
+
+                localStorage.setItem('token', data.token);
+                alert(data.message)
+                window.location.href = "painelUsuario.html"
+
+            } else {
+                alert('Erro ao logar')
+            }
+        })
 
        .catch(error => {
                 console.error('Erro na requisição:', error);
                 alert('Ocorreu um erro ao tentar fazer login. Tente novamente.');
+        
         }); 
-
     })
     </script>
 </body>
